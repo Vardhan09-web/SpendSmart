@@ -1,3 +1,14 @@
+/* src/index.css */
+
+/* This is where you put the @import line */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* You can also put your own custom CSS here */
+body {
+  margin: 0;
+}
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

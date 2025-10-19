@@ -1,9 +1,9 @@
 /* src/index.css */
 
 /* This is where you put the @import line */
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* You can also put your own custom CSS here */
 body {

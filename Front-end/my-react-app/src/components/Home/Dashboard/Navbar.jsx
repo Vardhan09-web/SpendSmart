@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-lg border-b border-gray-200 shadow-md">
@@ -22,13 +24,21 @@ export default function Navbar() {
 
         {/* Buttons */}
         <div className="flex gap-4 items-center">
-          <button className="text-gray-800 font-medium hover:text-emerald-600 transition-colors">
+          <Link
+            to="/login"
+            className="text-gray-800 font-medium hover:text-emerald-600 transition-colors"
+          >
             Login
-          </button>
-          <button className="bg-emerald-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-emerald-700 transition-all">
+          </Link>
+
+          <Link
+            to="/register"
+            className="bg-emerald-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-emerald-700 transition-all"
+          >
             Get Started
-          </button>
+          </Link>
         </div>
+
       </div>
     </nav>
   );

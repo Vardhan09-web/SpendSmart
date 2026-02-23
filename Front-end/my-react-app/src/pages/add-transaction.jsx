@@ -9,6 +9,7 @@ import {
 
 import Sidebar from "../components/User/Dashboard/sidebar";
 import Topbar from "../components/User/Dashboard/Topbar";
+import { addIncome, addExpense } from "../api/transactionApi";
 
 /* ---------------- CATEGORY DATA ---------------- */
 
@@ -84,22 +85,71 @@ export default function AddTransaction() {
   }, []);
 
   /* ---------- SUBMIT ANIMATION ---------- */
-  const handleSubmit = () => {
-    if (formRef.current) {
-      gsap.to(formRef.current, {
-        scale: 0.96,
-        opacity: 0.6,
-        duration: 0.3,
-        onComplete: () => {
-          gsap.to(formRef.current, {
-            scale: 1,
-            opacity: 1,
-            duration: 0.3,
-          });
-        },
-      });
+  // const handleSubmit = () => {
+  //   if (formRef.current) {
+  //     gsap.to(formRef.current, {
+  //       scale: 0.96,
+  //       opacity: 0.6,
+  //       duration: 0.3,
+  //       onComplete: () => {
+  //         gsap.to(formRef.current, {
+  //           scale: 1,
+  //           opacity: 1,
+  //           duration: 0.3,
+  //         });
+  //       },
+  //     });
+  //   }
+  // };
+
+  const handleSubmit = async () => {
+  try {
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+      alert("User not logged in");
+      return;
     }
-  };
+
+    if (!category || !amount || !date) {
+      alert("Please fill all required fields");
+      return;
+    }
+
+    const data =
+      transactionType === "income"
+        ? {
+            title: category,
+            category,
+            amount: parseFloat(amount),
+            incomeDate: date,
+          }
+        : {
+            title: category,
+            category,
+            amount: parseFloat(amount),
+            expenseDate: date,
+          };
+
+    if (transactionType === "income") {
+      await addIncome(userId, data);
+    } else {
+      await addExpense(userId, data);
+    }
+
+    alert("Transaction Added Successfully ✅");
+
+    // Reset form
+    setCategory("");
+    setAmount("");
+    setDate("");
+    setNotes("");
+
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong ❌");
+  }
+};
 
   return (
     <div
@@ -264,9 +314,9 @@ export default function AddTransaction() {
               <div className="mb-6">
                 <label
                   className={`block text-sm font-semibold mb-2 ${
-                    isDark ? "text-gray-700" : "text-slate-300"
+                    isDark ? "text-slate-300" : "text-gray-700"
                   }`}
-                >
+                > 
                   Amount
                 </label>
 
@@ -288,7 +338,7 @@ export default function AddTransaction() {
               <div className="mb-6">
                 <label
                   className={`block text-sm font-semibold mb-2 ${
-                    isDark ? "text-gray-700" : "text-slate-300"
+                    isDark ? "text-slate-300" : "text-gray-700"
                   }`}
                 >
                   Date
@@ -311,7 +361,7 @@ export default function AddTransaction() {
               <div className="mb-8">
                 <label
                   className={`block text-sm font-semibold mb-2 ${
-                    isDark ? "text-gray-700" : "text-slate-300"
+                    isDark ? "text-slate-300" : "text-gray-700"
                   }`}
                 >
                   Notes (Optional)
@@ -333,6 +383,7 @@ export default function AddTransaction() {
 
               {/* Submit */}
               <button
+                onClick={handleSubmit}
                 className="w-full flex items-center justify-center gap-2 py-3 rounded-xl
                            bg-gradient-to-r from-emerald-500 to-blue-500
                            font-semibold text-white hover:opacity-90 transition"

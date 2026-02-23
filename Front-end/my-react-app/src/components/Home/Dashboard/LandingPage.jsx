@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 export default function LandingPage() {
+    const navigate = useNavigate();
     return (
         <main className="pt-20 bg-gradient-to-b from-white to-emerald-50 text-gray-800">
             {/* -------------------- Hero Section -------------------- */}
@@ -14,7 +16,7 @@ export default function LandingPage() {
                         with clear insights and real-time updates.
                     </p>
                     <div className="flex justify-center md:justify-start gap-4 mt-6">
-                        <button className="bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition">
+                        <button  onClick={() => navigate("/login")} className="bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition">
                             Get Started →
                         </button>
                         <button className="border border-gray-300 px-6 py-3 rounded-lg font-semibold text-gray-700 hover:bg-gray-100 transition">
@@ -189,7 +191,7 @@ export default function LandingPage() {
                 <p className="text-lg text-emerald-100 mb-8">
                     Join SpendSmart today and start tracking your money smarter.
                 </p>
-                <button className="bg-white text-emerald-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+                <button onClick={() => navigate("/login")} className="bg-white text-emerald-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
                     Start Managing Now →
                 </button>
             </section>

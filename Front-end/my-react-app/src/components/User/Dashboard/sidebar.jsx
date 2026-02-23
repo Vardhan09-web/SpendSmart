@@ -167,13 +167,13 @@ const Sidebar = () => {
   const [darkMode, setDarkMode] = useState(true);
 
   // ✅ Proper Tailwind dark mode handling (NO UI CHANGE)
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+  // useEffect(() => {
+  //   if (darkMode) {
+  //     document.documentElement.classList.add("dark");
+  //   } else {
+  //     document.documentElement.classList.remove("dark");
+  //   }
+  // }, [darkMode]);
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
@@ -200,14 +200,6 @@ const Sidebar = () => {
             )}
 
             <div className="flex items-center gap-2">
-              {/* DARK MODE BUTTON */}
-              <button
-                onClick={() => setDarkMode(!darkMode)}
-                className="text-gray-400 hover:text-white transition p-1.5 rounded-md bg-slate-900/50"
-              >
-                {darkMode ? <FiSun size={16} /> : <FiMoon size={16} />}
-              </button>
-
               {/* COLLAPSE BUTTON */}
               <button
                 onClick={() => setCollapsed(!collapsed)}

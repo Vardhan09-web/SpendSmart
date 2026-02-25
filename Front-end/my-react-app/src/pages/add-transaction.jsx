@@ -84,23 +84,6 @@ export default function AddTransaction() {
     return () => ctx.revert();
   }, []);
 
-  /* ---------- SUBMIT ANIMATION ---------- */
-  // const handleSubmit = () => {
-  //   if (formRef.current) {
-  //     gsap.to(formRef.current, {
-  //       scale: 0.96,
-  //       opacity: 0.6,
-  //       duration: 0.3,
-  //       onComplete: () => {
-  //         gsap.to(formRef.current, {
-  //           scale: 1,
-  //           opacity: 1,
-  //           duration: 0.3,
-  //         });
-  //       },
-  //     });
-  //   }
-  // };
 
   const handleSubmit = async () => {
   try {
@@ -180,7 +163,7 @@ export default function AddTransaction() {
           <div className="w-full max-w-2xl px-4">
             {/* Page Title */}
             <div className="text-center mb-10">
-              <h1 className="text-4xl sm:text-4xl font-bold bg-gradient-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent">
+              <h1 className="text-4xl sm:text-4xl font-bold bg-linear-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent">
                 Add Transaction
               </h1>
               <p className="mt-2 text-sm sm:text-base text-slate-400">
@@ -193,7 +176,7 @@ export default function AddTransaction() {
               className={`rounded-2xl p-6 sm:p-8 shadow-2xl transition-colors 
                 ${
                   isDark
-                    ? "bg-gradient-to-b from-[#0f1a2e] to-[#0b1220] text-white"
+                    ? "bg-linear-to-b from-[#0f1a2e] to-[#0b1220] text-white"
                     : "bg-white text-gray-900"
                 }`}
                 
@@ -203,6 +186,17 @@ export default function AddTransaction() {
                 <span className="w-2 h-2 bg-teal-400 rounded-full" />
                 Transaction Details
               </h2>
+
+                                  <button
+                type="button"
+                onClick={() => {
+                  setOpenCategory(false);
+                  setShowOCR(true);
+                }}
+                className="w-full mb-4 py-3 rounded-xl border border-teal-400 text-teal-400 hover:bg-teal-400/10 transition"
+              >
+                📷 Scan Receipt (OCR)
+              </button>
 
               {/* Transaction Type */}
               <div className="mb-6">
@@ -385,7 +379,7 @@ export default function AddTransaction() {
               <button
                 onClick={handleSubmit}
                 className="w-full flex items-center justify-center gap-2 py-3 rounded-xl
-                           bg-gradient-to-r from-emerald-500 to-blue-500
+                           bg-linear-to-r from-emerald-500 to-blue-500
                            font-semibold text-white hover:opacity-90 transition"
               >
                 <Plus />

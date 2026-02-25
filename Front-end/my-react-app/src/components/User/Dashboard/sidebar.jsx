@@ -193,7 +193,7 @@ const Sidebar = () => {
                 <div className="p-1.5 rounded-lg flex items-center justify-center">
                   💲
                 </div>
-                <h1 className="bg-gradient-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent font-bold text-lg transition">
+                <h1 className="bg-linear-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent font-bold text-lg transition">
                   SpendSmart
                 </h1>
               </div>

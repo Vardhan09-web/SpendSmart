@@ -15,14 +15,12 @@ import { addIncome, addExpense } from "../api/transactionApi";
 
 const CATEGORIES = {
   expense: [
-    "Groceries",
-    "Dining",
-    "Transport",
+    "Food & Dining",
+    "Transportation",
+    "Entertainment",
+    "Shopping",
     "Rent",
     "Utilities",
-    "Shopping",
-    "Healthcare",
-    "Entertainment",
   ],
   income: [
     "Salary",

@@ -1,5 +1,28 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 const RecentTransactions = ({ theme }) => {
   const isDark = theme === "dark";
+
+  const [transactions, setTransactions] = useState([]);
+
+  const userId = localStorage.getItem("userId");
+
+  const fetchTransactions = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8080/api/transactions/recent/${userId}`
+      );
+
+      setTransactions(res.data);
+    } catch (err) {
+      console.error("Error fetching transactions", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
 
   return (
     <div
@@ -20,26 +43,30 @@ const RecentTransactions = ({ theme }) => {
       </h2>
 
       <ul className="space-y-4">
-        <li className="flex justify-between">
-          <span className={isDark ? "text-gray-300" : "text-gray-700"}>
-            Grocery Store
-          </span>
-          <span className="text-red-500">- $45.00</span>
-        </li>
 
-        <li className="flex justify-between">
-          <span className={isDark ? "text-gray-300" : "text-gray-700"}>
-            Salary Deposit
-          </span>
-          <span className="text-green-500">+ $3,200.00</span>
-        </li>
+        {transactions.map((tx, index) => (
 
-        <li className="flex justify-between">
-          <span className={isDark ? "text-gray-300" : "text-gray-700"}>
-            Electric Bill
-          </span>
-          <span className="text-red-500">- $120.00</span>
-        </li>
+          <li key={index} className="flex justify-between">
+
+            <span className={isDark ? "text-gray-300" : "text-gray-700"}>
+              {tx.title}
+            </span>
+
+            <span
+              className={
+                tx.type === "expense"
+                  ? "text-red-500"
+                  : "text-green-500"
+              }
+            >
+              {tx.type === "expense" ? "- $" : "+ $"}
+              {tx.amount}
+            </span>
+
+          </li>
+
+        ))}
+
       </ul>
     </div>
   );

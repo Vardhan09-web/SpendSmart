@@ -13,7 +13,7 @@
             this.email = email;
         }
 
-        // Getters (VERY IMPORTANT for JSON)
+        // Getters 
         public Long getId() {
             return id;
         }

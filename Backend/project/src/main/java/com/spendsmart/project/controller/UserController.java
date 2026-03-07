@@ -27,10 +27,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    // =========================
-    // USER PROFILE APIs
-    // =========================
-
     // GET Profile
     @GetMapping("/api/users/{id}")
     public User getUser(@PathVariable Long id) {
@@ -42,10 +38,6 @@ public class UserController {
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
         return userService.updateUser(id, user);
     }
-
-    // =========================
-    // AUTH APIs
-    // =========================
 
     // REGISTER USER
     @PostMapping("/api/auth/register")

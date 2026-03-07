@@ -29,12 +29,12 @@
 
         private boolean termsAccepted;
 
-        // 🔥 FIXED HERE
+        // FIXED HERE
         @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
         @JsonIgnore
         private List<Income> incomes;
 
-        // 🔥 FIXED HERE
+        // FIXED HERE
         @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
         @JsonIgnore
         private List<Expenditure> expenditures;

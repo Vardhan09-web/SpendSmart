@@ -21,10 +21,10 @@ public class Income {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // 🔹 Default Constructor
+    // Default Constructor
     public Income() {}
 
-    // 🔹 Getters
+    // Getters
     public Long getId() {
         return id;
     }
@@ -49,7 +49,7 @@ public class Income {
         return user;
     }
 
-    // 🔹 Setters
+    // Setters
     public void setId(Long id) {
         this.id = id;
     }

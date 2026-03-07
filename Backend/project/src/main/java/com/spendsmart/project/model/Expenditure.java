@@ -19,11 +19,12 @@ public class Expenditure {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore   // 🔥 IMPORTANT FIX
+    @JsonIgnore   
     private User user;
 
     // Default Constructor
     public Expenditure() {}
+    
 
     // Getters
     public Long getId() { return id; }
@@ -40,4 +41,6 @@ public class Expenditure {
     public void setAmount(Double amount) { this.amount = amount; }
     public void setExpenseDate(LocalDate expenseDate) { this.expenseDate = expenseDate; }
     public void setUser(User user) { this.user = user; }
+
+    
 }

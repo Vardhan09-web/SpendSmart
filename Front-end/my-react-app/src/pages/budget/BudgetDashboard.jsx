@@ -130,6 +130,30 @@ export default function BudgetDashboard() {
     fetchBudgets();
   }, []);
 
+  useEffect(() => {
+
+    if (!budgets || budgets.length === 0) return;
+
+    const overspentCategories = budgets.filter(
+      (budget) => Number(budget.spent) > Number(budget.limitAmount)
+    );
+
+    if (overspentCategories.length > 0) {
+
+      const message = overspentCategories
+        .map(
+          (b) =>
+            `${b.category} → Spent $${b.spent} / Limit $${b.limitAmount}`
+        )
+        .join("\n");
+
+      alert(
+        `Budget Overspent! You exceeded the budget in:\n${message}`
+      );
+    }
+
+  }, [budgets]);
+
   return (
     <div
       className={`flex min-h-screen pt-16 transition-colors ${

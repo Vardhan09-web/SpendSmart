@@ -41,4 +41,15 @@ public class ExpenditureController {
         expenditureService.deleteExpense(userId, expenseId);
         return "Expense deleted successfully";
     }
+
+    // REPORT FILTER API (for Apply Filter button)
+    @GetMapping("/reports/filter")
+    public List<Expenditure> filterReports(
+            @RequestParam Long userId,
+            @RequestParam(required = false) Integer month,
+            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) String category) {
+
+        return expenditureService.filterReports(userId, month, year, category);
+    }
 }

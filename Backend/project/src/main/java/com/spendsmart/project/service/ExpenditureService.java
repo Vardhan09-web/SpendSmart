@@ -3,8 +3,8 @@ package com.spendsmart.project.service;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
-import com.spendsmart.project.model.User;              // ✔ Make sure this matches your User entity package
-import com.spendsmart.project.model.Expenditure;       // ✔ Make sure this matches your Expenditure entity package
+import com.spendsmart.project.model.User;
+import com.spendsmart.project.model.Expenditure;
 import com.spendsmart.project.repository.ExpenditureRepository;
 import com.spendsmart.project.repository.UserRepository;
 
@@ -58,5 +58,15 @@ public class ExpenditureService {
         }
 
         expenditureRepository.delete(expense);
+    }
+
+    // REPORT FILTER METHOD
+    public List<Expenditure> filterReports(Long userId, Integer month, Integer year, String category) {
+
+        if (category != null && category.isEmpty()) {
+            category = null;
+        }
+
+        return expenditureRepository.filterReports(userId, month, year, category);
     }
 }

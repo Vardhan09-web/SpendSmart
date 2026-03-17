@@ -20,6 +20,7 @@ public class Budget {
 
     public Budget(){}
 
+    // Getters
     public Long getId() { return id; }
 
     public String getCategory() { return category; }
@@ -28,6 +29,7 @@ public class Budget {
 
     public User getUser() { return user; }
 
+    // Setters
     public void setId(Long id) { this.id = id; }
 
     public void setCategory(String category) { this.category = category; }

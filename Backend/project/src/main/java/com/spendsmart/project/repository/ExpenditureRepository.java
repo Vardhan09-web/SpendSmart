@@ -31,4 +31,21 @@ public interface ExpenditureRepository extends JpaRepository<Expenditure, Long> 
          @Param("userId") Long userId,
          @Param("category") String category
    );
+
+   // 🔹 FILTER FOR REPORT PAGE
+    @Query("""
+    SELECT e
+    FROM Expenditure e
+    WHERE e.user.id = :userId
+    AND (:category IS NULL OR e.category = :category)
+    AND (:month IS NULL OR FUNCTION('MONTH', e.expenseDate) = :month)
+    AND (:year IS NULL OR FUNCTION('YEAR', e.expenseDate) = :year)
+    """)
+    List<Expenditure> filterReports(
+            @Param("userId") Long userId,
+            @Param("month") Integer month,
+            @Param("year") Integer year,
+            @Param("category") String category
+    );
+    
 }

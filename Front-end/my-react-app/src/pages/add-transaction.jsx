@@ -21,6 +21,7 @@ const CATEGORIES = {
     "Shopping",
     "Rent",
     "Utilities",
+    "Others"
   ],
   income: [
     "Salary",
@@ -132,6 +133,52 @@ export default function AddTransaction() {
   }
 };
 
+const fileInputRef = useRef(null);
+
+// 🔥 Trigger file input
+const handleScanClick = () => {
+  fileInputRef.current.click();
+};
+
+// 🔥 OCR Upload Function
+const handleOCRUpload = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const res = await fetch("http://localhost:8080/ocr", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    // 👉 Auto-fill your states
+  setAmount(data.amount || "");
+ setDate(formatDate(data.date));
+ console.log("DATE FROM OCR:", data.date);
+setCategory(data.category || "");
+
+    console.log("OCR Result:", data);
+
+  } catch (err) {
+    console.error("OCR Error:", err);
+  }
+};
+const formatDate = (dateStr) => {
+  if (!dateStr) return "";
+
+  if (dateStr.includes("/")) {
+    const [dd, mm, yyyy] = dateStr.split("/");
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  return dateStr; // already correct
+};
+
   return (
     <div
       className={`flex min-h-screen pt-10 transition-colors duration-300 ${
@@ -185,17 +232,23 @@ export default function AddTransaction() {
                 Transaction Details
               </h2>
 
-                                  <button
-                type="button"
-                onClick={() => {
-                  setOpenCategory(false);
-                  setShowOCR(true);
-                }}
-                className="w-full mb-4 py-3 rounded-xl border border-teal-400 text-teal-400 hover:bg-teal-400/10 transition"
-              >
-                📷 Scan Receipt (OCR)
-              </button>
-
+                    <button
+  type="button"
+  onClick={() => {
+    setOpenCategory(false);
+    fileInputRef.current.click(); // 🔥 trigger file upload
+  }}
+  className="w-full mb-4 py-3 rounded-xl border border-teal-400 text-teal-400 hover:bg-teal-400/10 transition"
+>
+  📷 Scan Receipt (OCR)
+</button>
+<input
+  type="file"
+  accept="image/*"
+  ref={fileInputRef}
+  onChange={handleOCRUpload}
+  style={{ display: "none" }}
+/>
               {/* Transaction Type */}
               <div className="mb-6">
                 <label

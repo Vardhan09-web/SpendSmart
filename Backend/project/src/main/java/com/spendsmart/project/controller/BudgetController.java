@@ -1,24 +1,4 @@
-// package com.spendsmart.project.controller;
 
-// import com.spendsmart.project.service.BudgetService;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.web.bind.annotation.*;
-
-// @CrossOrigin(origins = "http://localhost:5173")
-// @RestController
-// @RequestMapping("/api/budget")
-// public class BudgetController {
-
-//     @Autowired
-//     private BudgetService budgetService;
-
-//     @GetMapping("/{userId}")
-//     public Object getBudget(@PathVariable Long userId){
-
-//         return budgetService.getBudgetOverview(userId);
-
-//     }
-// }
 
 package com.spendsmart.project.controller;
 

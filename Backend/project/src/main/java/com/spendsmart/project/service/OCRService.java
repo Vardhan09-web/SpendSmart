@@ -141,19 +141,64 @@ public class OCRService {
 
     /* ---------------- CATEGORY ---------------- */
 
-    private String extractCategory(String text) {
-        text = text.toLowerCase();
+private String extractCategory(String text) {
+    text = text.toLowerCase();
 
-        if (text.contains("restaurant") || text.contains("food") || text.contains("cafe")) {
-            return "Food & Dining";
-        } else if (text.contains("uber") || text.contains("ola") || text.contains("fuel") || text.contains("petrol")) {
-            return "Transportation";
-        } else if (text.contains("amazon") || text.contains("flipkart") || text.contains("shopping")) {
-            return "Shopping";
-        } else if (text.contains("electricity") || text.contains("water") || text.contains("bill")) {
-            return "Utilities";
-        }
+    // 🍔 FOOD & DINING
+    if (
+        text.contains("restaurant") || text.contains("food") || text.contains("cafe") ||
+        text.contains("dine") || text.contains("hotel") || text.contains("meal") ||
+        text.contains("menu") || text.contains("pizza") || text.contains("burger") ||
+        text.contains("chicken") || text.contains("drink") || text.contains("beverage") ||
+        text.contains("bakery") || text.contains("coffee") || text.contains("tea")
+    ) {
+        return "Food & Dining";
+    }
 
+    // 🚗 TRANSPORTATION
+    else if (
+        text.contains("uber") || text.contains("ola") || text.contains("fuel") ||
+        text.contains("petrol") || text.contains("diesel") || text.contains("taxi") ||
+        text.contains("ride") || text.contains("bus") || text.contains("train") ||
+        text.contains("metro") || text.contains("transport") || text.contains("travel") ||
+        text.contains("ticket") || text.contains("parking") || text.contains("toll")
+    ) {
+        return "Transportation";
+    }
+
+    // 🛍️ SHOPPING (IMPORTANT FOR YOUR RECEIPT)
+    else if (
+        text.contains("shopping") || text.contains("store") || text.contains("shop") ||
+        text.contains("mall") || text.contains("purchase") || text.contains("item") ||
+        text.contains("product") || text.contains("clothing") || text.contains("shirt") ||
+        text.contains("t-shirt") || text.contains("pants") || text.contains("jeans") ||
+        text.contains("socks") || text.contains("fashion") || text.contains("apparel") ||
+        text.contains("flipkart") || text.contains("amazon") || text.contains("retail")
+    ) {
         return "Shopping";
     }
+
+    // 💡 UTILITIES
+    else if (
+        text.contains("electricity") || text.contains("water") || text.contains("bill") ||
+        text.contains("utility") || text.contains("gas") || text.contains("internet") ||
+        text.contains("wifi") || text.contains("broadband") || text.contains("recharge") ||
+        text.contains("mobile") || text.contains("postpaid") || text.contains("prepaid") ||
+        text.contains("dth") || text.contains("subscription") || text.contains("service")
+    ) {
+        return "Utilities";
+    }
+
+    // 🏠 RENT / HOUSING (optional but useful)
+    else if (
+        text.contains("rent") || text.contains("house") || text.contains("apartment") ||
+        text.contains("flat") || text.contains("room") || text.contains("lease") ||
+        text.contains("property") || text.contains("maintenance") || text.contains("housing") ||
+        text.contains("owner")
+    ) {
+        return "Rent";
+    }
+
+    return "Others";
+}
 }

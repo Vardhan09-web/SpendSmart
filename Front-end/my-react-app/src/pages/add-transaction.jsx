@@ -42,6 +42,8 @@ export default function AddTransaction() {
   const [notes, setNotes] = useState("");
   const [openCategory, setOpenCategory] = useState(false);
 
+  const [showInstructions, setShowInstructions] = useState(false);
+
   const isDark = theme === "dark";
 
   /* ---------- GSAP REFS ---------- */
@@ -232,11 +234,11 @@ const formatDate = (dateStr) => {
                 Transaction Details
               </h2>
 
-                    <button
+<button
   type="button"
   onClick={() => {
     setOpenCategory(false);
-    fileInputRef.current.click(); // 🔥 trigger file upload
+    setShowInstructions(true); // 🔥 open popup
   }}
   className="w-full mb-4 py-3 rounded-xl border border-teal-400 text-teal-400 hover:bg-teal-400/10 transition"
 >
@@ -249,6 +251,70 @@ const formatDate = (dateStr) => {
   onChange={handleOCRUpload}
   style={{ display: "none" }}
 />
+
+{showInstructions && (
+  <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+    <div className="bg-white text-gray-800 rounded-2xl p-6 w-[90%] max-w-md shadow-2xl">
+
+      {/* Title */}
+      <div className="text-center mb-4">
+        <h2 className="text-xl font-semibold">Scan Receipt</h2>
+        <p className="text-sm text-gray-500">
+          Follow these tips for best results
+        </p>
+      </div>
+
+      {/* Instructions */}
+      <div className="space-y-3 text-sm">
+        <div className="flex items-start gap-3">
+          <span>📄</span>
+          <p>Keep the receipt flat on a surface</p>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <span>💡</span>
+          <p>Ensure good lighting (avoid shadows)</p>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <span>📸</span>
+          <p>Capture the full receipt clearly</p>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <span>🔍</span>
+          <p>Make sure text is sharp and readable</p>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <span>💰</span>
+          <p>Ensure total amount is visible</p>
+        </div>
+      </div>
+
+      {/* Buttons */}
+      <div className="flex justify-between mt-6">
+        <button
+          onClick={() => setShowInstructions(false)}
+          className="px-4 py-2 text-gray-500 hover:text-gray-700 transition"
+        >
+          Cancel
+        </button>
+
+        <button
+          onClick={() => {
+            setShowInstructions(false);
+            fileInputRef.current.click();
+          }}
+          className="px-5 py-2 rounded-lg bg-linear-to-r from-emerald-500 to-blue-500 text-white font-medium shadow hover:opacity-90 transition"
+        >
+          Upload
+        </button>
+      </div>
+
+    </div>
+  </div>
+)}
               {/* Transaction Type */}
               <div className="mb-6">
                 <label

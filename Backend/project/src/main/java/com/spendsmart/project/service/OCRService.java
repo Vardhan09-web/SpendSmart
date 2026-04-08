@@ -4,29 +4,28 @@ import net.sourceforge.tess4j.Tesseract;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.*;
 
+import javax.imageio.ImageIO;
+
 @Service
 public class OCRService {
-
-    public Map<String, String> processImage(MultipartFile file) {
+        public Map<String, String> processImage(MultipartFile file) {
         Map<String, String> result = new HashMap<>();
 
         try {
-            // Save file temporarily
-            File convFile = File.createTempFile("receipt", ".jpg");
-            file.transferTo(convFile);
-
             // Setup Tesseract
             Tesseract tesseract = new Tesseract();
             tesseract.setDatapath("C:/Program Files/Tesseract-OCR/tessdata");
             tesseract.setLanguage("eng");
 
-            // Extract text
-            String text = tesseract.doOCR(convFile);
+            // ✅ NEW CODE (PNG + JPG SUPPORT)
+            BufferedImage image = ImageIO.read(file.getInputStream());
+            String text = tesseract.doOCR(image);
 
             // Clean text
             text = text.replaceAll("[^\\x00-\\x7F]", "");
@@ -38,8 +37,6 @@ public class OCRService {
             result.put("date", extractDate(text));
             result.put("category", extractCategory(text));
 
-            convFile.delete();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,6 +47,24 @@ public class OCRService {
     /* ---------------- AMOUNT ---------------- */
 
     private String extractAmount(String text) {
+
+        // 🔥 1. GRAND TOTAL (highest priority)
+        Pattern grandPattern = Pattern.compile("(grand total)[^\\d]*(\\d+[.,]\\d{2})", Pattern.CASE_INSENSITIVE);
+        Matcher grandMatcher = grandPattern.matcher(text);
+
+        if (grandMatcher.find()) {
+            return grandMatcher.group(2).replace(",", ".");
+        }
+
+        // 🔥 2. TOTAL (but avoid subtotal)
+        Pattern totalPattern = Pattern.compile("(?<!sub)(total)[^\\d]*(\\d+[.,]\\d{2})", Pattern.CASE_INSENSITIVE);
+        Matcher totalMatcher = totalPattern.matcher(text);
+
+        if (totalMatcher.find()) {
+            return totalMatcher.group(2).replace(",", ".");
+        }
+
+        // 🔥 3. Fallback → max value
         Pattern pattern = Pattern.compile("(\\d+[.,]\\d{2})");
         Matcher matcher = pattern.matcher(text);
 
@@ -57,9 +72,7 @@ public class OCRService {
 
         while (matcher.find()) {
             try {
-                String valueStr = matcher.group().replace(",", ".");
-                double value = Double.parseDouble(valueStr);
-
+                double value = Double.parseDouble(matcher.group().replace(",", "."));
                 if (value > maxAmount) {
                     maxAmount = value;
                 }
@@ -68,7 +81,6 @@ public class OCRService {
 
         return maxAmount > 0 ? String.valueOf(maxAmount) : "";
     }
-
     /* ---------------- DATE ---------------- */
 
     private String extractDate(String text) {
@@ -200,5 +212,5 @@ private String extractCategory(String text) {
     }
 
     return "Others";
-}
+ }
 }

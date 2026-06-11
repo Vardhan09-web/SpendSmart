@@ -251,42 +251,87 @@ Additional Modules:
 
 Landing page showcasing platform features and capabilities.
 
+![Home Page](./Front-end/my-react-app/src/Images/Homepage.jpg)
+
+---
+
 ### 📝 Registration Page
 
 Create a new SpendSmart account.
+
+![Registration Page](./Front-end/my-react-app/src/Images/RegPage.jpg)
+
+---
 
 ### 🔑 Login Page
 
 Secure user login interface.
 
-### 📊 Dashboard
+![Login Page](./Front-end/my-react-app/src/Images/LoginPage.jpg)
+
+---
+
+### 📊 User Dashboard
 
 Overview of income, expenses, remaining balance, and spending distribution.
+
+![User Dashboard](./Front-end/my-react-app/src/Images/UserDashboard.jpg)
+
+---
 
 ### ➕ Add Transaction
 
 Record income and expense details.
 
-### 📄 Upload Receipt
+![Add Transaction](./Front-end/my-react-app/src/Images/AddTransaction.jpg)
 
-Upload receipts for OCR-based processing.
+---
+
+### 📄 OCR Instructions
+
+Guidelines for uploading receipts for OCR processing.
+
+![OCR Instructions](./Front-end/my-react-app/src/Images/OCRInstructions.jpg)
+
+---
 
 ### 🤖 Auto Fill Using OCR
 
-Automatically extract transaction details from receipts.
+Automatically extract transaction details from receipts and populate transaction fields.
 
-### 💰 Budget Management
+![Auto Fill Using OCR](./Front-end/my-react-app/src/Images/AutoFillUsingOCR.jpg)
 
-Create and monitor budgets across spending categories.
+---
+
+### 💰 Add Budget
+
+Create category-based budget limits.
+
+![Add Budget](./Front-end/my-react-app/src/Images/AddBudget.jpg)
+
+---
+
+### ⚠️ Budget Monitoring
+
+Track spending and identify budget limit exceedance.
+
+![Budget Monitoring](./Front-end/my-react-app/src/Images/BudgetExceed.jpg)
+
+---
 
 ### 📈 Reports & Analytics
 
 Interactive charts and financial reports.
 
+![Visual Reports](./Front-end/my-react-app/src/Images/VisualReports.jpg)
+
+---
+
 ### 🧠 Financial Insights
 
 Analyze spending behavior and expense trends.
 
+![AI Insights](./Front-end/my-react-app/src/Images/AI-Insights.jpg)
 ---
 
 ## 🎯 Target Users
